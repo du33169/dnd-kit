@@ -4,7 +4,9 @@ import {isNode} from '../type-guards/isNode.ts';
 import {isSVGElement} from '../type-guards/isSVGElement.ts';
 import {isWindow} from '../type-guards/isWindow.ts';
 
-export function getDocument(target: Event['target'] | undefined): Document {
+export function getDocument(
+  target: Event['target'] | undefined
+): Document | ShadowRoot {
   if (!target) {
     return document;
   }
@@ -22,6 +24,10 @@ export function getDocument(target: Event['target'] | undefined): Document {
   }
 
   if (isHTMLElement(target) || isSVGElement(target)) {
+    const rootNode = target.getRootNode();
+    if (rootNode instanceof ShadowRoot) {
+      return rootNode;
+    }
     return target.ownerDocument;
   }
 

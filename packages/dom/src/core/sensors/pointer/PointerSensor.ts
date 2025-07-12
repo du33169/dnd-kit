@@ -356,7 +356,10 @@ export class PointerSensor extends Sensor<
     event.preventDefault();
 
     const ownerDocument = getDocument(event.target);
-    const pointerCaptureTarget = ownerDocument.body;
+    const pointerCaptureTarget =
+      ownerDocument instanceof Document
+        ? ownerDocument.body
+        : ownerDocument.host;
 
     pointerCaptureTarget.setPointerCapture(event.pointerId);
 
