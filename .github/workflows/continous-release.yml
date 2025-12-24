@@ -2,7 +2,7 @@ name: Continuous Release
 on:
   pull_request:
   push:
-    branches: [experimental]
+    # branches: [experimental]
 
 jobs:
   build:
